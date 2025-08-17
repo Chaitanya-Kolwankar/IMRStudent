@@ -1,0 +1,392 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="imagetoolbar" content="no" />
+    <link rel="shortcut icon" href="images/vivalogo.png" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="notify-master/js/jquery-1.11.0.js"></script>
+    <link href="notify-master/css/notify.css" rel="stylesheet" />
+    <script src="notify-master/js/notify.js"></script>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <%--<script src="js/jquery-min.js"></script>--%>
+    <script src="js/jquery.qrcode.min.js"></script>
+    <script src="js/jquery-barcode.js"></script>
+
+    <title>Student Portal</title>
+
+    <style>
+        /*.watermark {
+            background-image: url("watermark-viva.png");
+        }*/
+        body {
+            background-color: #2471a3 !important;
+        }
+
+        .alignment {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .blink_me {
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-name: blinker;
+            -moz-animation-duration: 1s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-iteration-count: infinite;
+            animation-name: blinker;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @-moz-keyframes blinker {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        @-webkit-keyframes blinker {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        @keyframes blinker {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        .nav > li > a {
+            color: white;
+        }
+
+            .nav > li > a:hover, .nav > li > a:focus {
+                text-decoration: none;
+                background-color: #7FB3D5 !important;
+            }
+
+
+        /* .navbar-default {
+            background-color: gainsboro !important;
+            border-color: #000 !important;
+        }
+
+           a {
+            color: black !important;
+            text-decoration: none;
+        }
+       */
+    </style>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- MetisMenu CSS -->
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <%--    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35865948-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>--%>
+    <script type="text/javascript" language="javascript">
+
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function () { void (0) }
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background: #2471A3">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <asp:Label ID="lblname" runat="server" Text="" CssClass="form-control-static" Style="color: white"></asp:Label><br />
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <%--<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong></strong>
+                                    <span class="pull-right text-muted">
+                                        <em></em>
+                                    </span>
+                                </div>
+                                <div>No New Messages is available</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>--%>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="profile.aspx"><i class="fa fa-user fa-fw"></i>My Profile</a>
+                        </li>
+                        <li><a href="contact.aspx"><i class="fa fa-user fa-fw"></i>Contact Us</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="log_out.aspx"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation" style="/*height: 100vh; */background: #2471A3">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search" style="text-align: center; display: none">
+                            <div class="input-group">
+                                <%--<img src="images/viva_lg.png" style="height: 50px; width: 165px" />--%>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li class="sidebar-search" style="text-align: center; display: flex; justify-content: center">
+                            <div class="input-group">
+                                <asp:Image ID="Image1" runat="server" Height="157px" Width="165px" BackColor="#E0E0E0" BorderColor="Black" BorderStyle="Solid" BorderWidth="5px" />
+                                <div class="form-group" style="text-align: center">
+
+                                    <asp:Label ID="lbldobfromuser" runat="server" Text="" CssClass="form-control-static" Style="color: white"></asp:Label><br />
+                                    <asp:Label ID="lblstudid" runat="server" Text="" CssClass="form-control-static" Style="color: white"></asp:Label>
+                                </div>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="home.aspx"><i class="fa fa-home fa-fw"></i>Home</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="profile.aspx"><i class="fa fa-user fa-fw"></i>My Profile</a>
+                        </li>
+
+                        <li runat="server" id="stud_lc" visible="false">
+                            <a href="upload_lc.aspx" style="color: blue"><i class="fa fa-file-text fa-fw"></i>
+                                <blink>Upload LC</blink></a>
+
+                        </li>
+
+                        <li style="display: none">
+                            <a href="#"><i class="fa fa-info-circle fa-fw"></i>Other Information</a>
+                        </li>
+                        <li id="li_railway" runat="server" style="display: none;">
+                            <a href="railwayIAgree.aspx"><i class="fa fa-train fa-fw"></i>Railway Concession</a>
+                        </li>
+                        <li id="fee_pen" runat="server">
+                            <a href="pendingFee.aspx"><i class="fa fa-graduation-cap fa-fw"></i>Fee Payment(Balance Fees)</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li id="li2" runat="server">
+                            <a href="fee_receipt_print.aspx"><i class="fa fa-graduation-cap fa-fw"></i>Fee Receipt</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li id="neft_li" runat="server" visible="false">
+                            <a href="neft_details.aspx" class="blink_me" style="color: red"><i class="fa fa-graduation-cap fa-fw"></i>NEFT Payment</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <%--<li>
+                            <a href="Result.aspx"><i class="fa fa-graduation-cap fa-fw"></i> Results</a>
+                        </li>--%>
+                        <li id="li_admission" runat="server" visible="false">
+                            <a href="admission.aspx" class="blink_me" style="color: red"><i class="fa fa-graduation-cap fa-fw"></i>Online Admission(Academic Year
+                                <asp:Label ID="lblacdyear" runat="server"></asp:Label>)</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="application-forms.aspx"><i class="fa fa-file-text fa-fw"></i>Application Forms</a>
+
+                        </li>
+                        <li>
+                            <asp:HyperLink ID="docupd" runat="server" Target="_blank"><i class="fa fa-file-text fa-fw" ></i> Document Upload</asp:HyperLink>
+
+                        </li>
+
+                        <li style="display: none;">
+                            <a href="Reg_exm.aspx"><i class="fa fa-file-text fa-fw"></i>Regular Examination Form</a>
+
+                        </li>
+                        <li runat="server" id="ktform" visible="false">
+                            <a href="KT_Exm.aspx"><i class="fa fa-file-text fa-fw"></i>
+                                <span>KT Examination Form </span></a>
+                        </li>
+
+
+
+                        <li runat="server" id="ktformnew">
+                            <%--<a href="KT_ExamNew.aspx" style="color:red"><i class="fa fa-file-text fa-fw"></i><blink>KT Examination Form(Semester:- 1,2,7,8)</blink></a>--%>
+                        </li>
+
+                        <li style="display: none;">
+                            <a href="Reval.aspx" style="color: red"><i class="fa fa-file-text fa-fw"></i>
+                                Revaluation Form</a>
+                        </li>
+                        <li style="display: none;">
+                            <a href="photocopy.aspx" style="color: red"><i class="fa fa-file-text fa-fw"></i>
+                                Photocopy Form</a>
+                        </li>
+                        <li style="display: none;">
+                            <a href="Search_book.aspx"><i class="fa fa-book fa-fw"></i>Online Public Access Catalog</a>
+                        </li>
+                        <li style="display: none;">
+                            <a href="NCRENB_FF_P.aspx"><i class="fa fa-phone fa-fw"></i>NCRENB</a>
+                        </li>
+                        <li style="display: none;">
+                            <a href="Adm_provisional.aspx"><i class="fa fa-phone fa-fw"></i>Provisional Admission</a>
+                        </li>
+                        <li style="display: none;">
+                            <a href="Complaint.aspx"><i class="fa fa-warning fa-fw"></i>Register Suggestion</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="change.aspx"><i class="fa fa-wrench fa-fw"></i>Change Password</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="contact.aspx"><i class="fa fa-phone fa-fw"></i>Contact Us</a>
+                        </li>
+
+                        <li class="active">
+                            <a href="log_out.aspx"><i class="fa fa-sign-out fa-fw"></i>Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper" style="background: #7FB3D5; height: 100%;">
+            <div class="container-fluid watermark">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                <!-- /.row -->
+            </div>
+
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <%--<script src="js/jquery.js"></script>--%>
+    <!-- jQuery first -->
+
+    <!-- Then Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
+
+</body>
+</html>

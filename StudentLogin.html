@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIVA Institute - Student Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('images/background/background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .login-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+        }
+        .institute-header h5, .institute-header h4 {
+            margin: 5px 0;
+        }
+        .footer-note {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="text-center mb-4 institute-header">
+            <img src="images/vivalogo.png" height="100" alt="VIVA Logo">
+            <h5><strong>Shri. Vishnu Waman Thakur Charitable Trust's</strong></h5>
+            <h4 class="text-dark">VIVA INSTITUTE OF TECHNOLOGY</h4>
+            <h4 class="text-secondary">Student Portal Login</h4>
+        </div>
+
+        <div class="col-md-6 col-lg-4 login-card">
+            <h3 class="text-center mb-4">Please Sign In</h3>
+            <form method="post">
+                <div class="mb-3">
+                    <input type="text" name="studentId" class="form-control" placeholder="Student ID" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mb-3">Login</button>
+                <div class="text-center mb-2">
+                    <a href="Forgot_ID.aspx">Forgot ID / Password?</a>
+                </div>
+                <div class="alert alert-light text-center footer-note" role="alert">
+                    Help Line Number: <strong>8408931470</strong><br>
+                    Timing: 10 AM to 5 PM Only
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
