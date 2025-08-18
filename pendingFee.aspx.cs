@@ -166,7 +166,7 @@ public partial class pendingFee : System.Web.UI.Page
         else if (ddl_install.Items.Count == 0)
         {
             amtshw.Visible = true;
-            txtamount.Text = lblfee.Text;
+            txtamount.Text = lblpaid.Text;
         }
     }
 

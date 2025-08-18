@@ -12,6 +12,24 @@
             text-transform: uppercase;
             text-align: center;
         }
+
+        table, td, th {
+            border: 1px solid #ddd;
+            /*text-align: left;*/
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+
+        th {
+            color: #012970;
+        }
     </style>
     <form id="Form1" runat="server">
         <br />
@@ -26,48 +44,56 @@
                         </div>
                     </div>
                     <div class="row" id="transaction" style="margin-top: 10px">
+                        <asp:HiddenField ID="group_id" runat="server" ClientIDMode="Static" />
                         <div class="col-md-12">
                             <div class="table-responsive" style="max-height: 500px; overflow: auto;">
-                                <asp:GridView ID="grdtransaction" CssClass="table table-condensed table-bordered mygrid" runat="server" OnRowCommand="grdtransaction_RowCommand" AutoGenerateColumns="false">
-                                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                    <RowStyle HorizontalAlign="Center" Height="10px"></RowStyle>
+                                <asp:GridView ID="grdedit" runat="server" Style="text-align: left;" AutoGenerateColumns="False" CssClass="table">
                                     <Columns>
+                                        <asp:TemplateField HeaderText="SR.NO">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_sr_no" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Status" Visible="false">
+                                            <ItemTemplate>
+                                                <asp:Label ID="Chq_status" runat="server" Text='<%# Eval("Chq_status")%>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Install_id" Visible="false">
+                                            <ItemTemplate>
+                                                <asp:Label ID="Install_id" runat="server" Text='<%# Eval("Install_id")%>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RECEIPT NO">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblrecptno" runat="server" Text='<%# Eval("Recpt_no")%>'></asp:Label>
+                                                <asp:Label ID="Receipt_no" runat="server" Text='<%# Eval("Receipt_no")%>'></asp:Label>
                                             </ItemTemplate>
-                                            <ItemStyle Width="15%" />
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="RECEIPT TYPE">
+                                        <asp:TemplateField HeaderText="STRUCTURE TYPE">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblstruct" runat="server" Text='<%# Eval("struct")%>'></asp:Label>
+                                                <asp:Label ID="Type" runat="server" Text='<%# Eval("Type")%>'></asp:Label>
                                             </ItemTemplate>
-                                            <ItemStyle Width="15%" />
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="AMOUNT">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblamount" runat="server" Text='<%# Eval("amt")%>'></asp:Label>
+                                                <asp:Label ID="Amount" runat="server" Text='<%# Eval("Amount")%>'></asp:Label>
                                             </ItemTemplate>
-                                            <ItemStyle Width="15%" />
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="PAYMENT MODE">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblmode" runat="server" Text='<%# Eval("Recpt_mode")%>'></asp:Label>
+                                                <asp:Label ID="Recpt_mode" runat="server" Text='<%# Eval("Recpt_mode")%>'></asp:Label>
                                             </ItemTemplate>
-                                            <ItemStyle Width="20%" />
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="PAYMENT DATE">
+                                        <asp:TemplateField HeaderText="PAY DATE">
                                             <ItemTemplate>
-                                                <asp:Label ID="lbldate" runat="server" Text='<%# Eval("PAYDATE")%>'></asp:Label>
+                                                <asp:Label ID="Pay_date" runat="server" Text='<%# Eval("Pay_date")%>'></asp:Label>
                                             </ItemTemplate>
-                                            <ItemStyle Width="20%" />
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RECEIPT">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="btnprint" CssClass="btn btn-success" runat="server" CommandName="Print" CommandArgument="<%# Container.DataItemIndex %>" Text="RECEIPT" />
-                                                <asp:Label ID="lblstatus" runat="server" Text='<%# Eval("Status")%>' Visible="false"></asp:Label>
+                                                <asp:LinkButton ID="btnprint" runat="server" CssClass="btn btn-primary form-control fa fa-print" OnClick="btnprint_Click"></asp:LinkButton>
                                             </ItemTemplate>
-                                            <ItemStyle Width="15%" />
+                                            <ItemStyle HorizontalAlign="Center" />
                                         </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>

@@ -6,7 +6,7 @@
 
 <head>
     <meta http-equiv="imagetoolbar" content="no" />
-    <link rel="shortcut icon" href="images/vivalogo.png" />
+    <link rel="shortcut icon" href="images/mu.png" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,7 +38,9 @@
             vertical-align: middle;
             text-align: center;
         }
-
+        .logo-nav{
+            max-height: 50px;
+        }
         .blink_me {
             -webkit-animation-name: blinker;
             -webkit-animation-duration: 1s;
@@ -181,6 +183,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
+                    <%--<img src="images/mu.png" alt="" class="logo-nav" />--%>
                     <asp:Label ID="lblname" runat="server" Text="" CssClass="form-control-static" Style="color: white"></asp:Label><br />
                 </a>
             </div>

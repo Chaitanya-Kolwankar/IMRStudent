@@ -13,10 +13,7 @@ using System.Web.UI.WebControls;
 
 public partial class fee_receipt_print : System.Web.UI.Page
 {
-    Fees fee = new Fees();
     Class1 cls = new Class1();
-    DataSet ds = new DataSet();
-    classWebMethods qrye = new classWebMethods();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["UserName"] != null && Session["UserName"].ToString() != "")
@@ -24,11 +21,6 @@ public partial class fee_receipt_print : System.Web.UI.Page
             if (!IsPostBack)
             {
                 fillyear(Session["UserName"].ToString());
-                //if (Convert.ToBoolean(Session["RequeryProcess"]) == false)
-                //{
-                //    bool processed = qrye.ATOMREQUERY(Session["UserName"].ToString());
-                //    Session["RequeryProcess"] = true;
-                //}
             }
         }
     }
@@ -39,90 +31,12 @@ public partial class fee_receipt_print : System.Web.UI.Page
 
         DataSet dss = cls.fill_dataset(qry);
         //group_id.Value = dss.Tables[1].Rows[0].ToString();
-        //group_id.Value = dss.Tables[0].Rows[0]["Group id"].ToString();
+        group_id.Value = dss.Tables[0].Rows[0]["Group id"].ToString();
         ddlayid.DataSource = dss.Tables[0];
         ddlayid.DataTextField = "Duration";
         ddlayid.DataValueField = "AYID";
         ddlayid.DataBind();
         ddlayid.Items.Insert(0, new ListItem("-- Select --", "0"));
-    }
-
-    protected void grdtransaction_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName == "Print")
-        {
-            int RowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = grdtransaction.Rows[RowIndex];
-            Label lblrecptno = (Label)row.FindControl("lblrecptno");
-            Label lbltype= (Label)row.FindControl("lblstruct");
-            Label lblstatus= (Label)row.FindControl("lblstatus");
-            if (lblstatus.Text == "Clear")
-            {
-                string str = "id=" + Session["UserName"].ToString() + "&recpt=" + lblrecptno.Text + "&ayid=" + ddlayid.SelectedValue.ToString() + "";
-
-                if (lbltype.Text == "OTHER FEES")
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "redirect('FeeReceiptOtherFees.aspx?" + str + "');", true);
-                }
-                else if(lbltype.Text== "TUTION FEES")
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "redirect('FeeReceiptTutionFees.aspx?" + str + "');", true);
-                }
-                else if (lbltype.Text == "FEES")
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "redirect('FeeReceiptMergeFees.aspx?" + str + "');", true);
-                }
-                else if(lbltype.Text== "MISCELLANEOUS FEES")
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "redirect('FeeReceiptMiscFees.aspx?" + str + "');", true);
-                }
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notify", "$.notify('Payment for the following transaction is not cleared yet', { color: '#fff', background: '#D44950', blur: 0.2, delay: 0 })", true);
-            }
-        }
-    }
-
-    public void useless()
-    {
-        fee.stud_id = null;
-        fee.Structure = null;
-        fee.amount = null;
-        fee.transaction_id = null;
-        fee.transaction_date = null;
-        fee.bankname = null;
-        fee.ayid = null;
-        fee.prev_ayid = null;
-        fee.category = null;
-        fee.group_title = null;
-        fee.group_id = null;
-        fee.prev_group_id = null;
-        fee.subtype = null;
-        fee.type = null;
-        fee.user_id = null;
-        fee.pay_date = null;
-        fee.recpt_mode = null;
-        fee.recpt_chq_no = null;
-        fee.recpt_chq_dt = null;
-        fee.recpt_bank_branch = null;
-        fee.chq_status = null;
-        fee.fee_type = null;
-        fee.remark = null;
-        fee.strarray = null;
-    }
-
-    public class JsonHelper
-    {
-        public static string JsonSerializer<T>(T t)
-        {
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
-            MemoryStream ms = new MemoryStream();
-            ser.WriteObject(ms, t);
-            string jsonString = Encoding.UTF8.GetString(ms.ToArray());
-            ms.Close();
-            return jsonString;
-        }
     }
 
     protected void ddlayid_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,70 +45,75 @@ public partial class fee_receipt_print : System.Web.UI.Page
         {
             if (ddlayid.SelectedIndex > 0)
             {
-                useless();
-                string urlalias = cls.urls();
-                string url = @urlalias + "Fees/";
-
-                fee.type = "receipt";
-                fee.subtype = "studentlistingmerge";      // subtype change for merge of receipt old subtype(studentlisting)
-                fee.stud_id = Session["UserName"].ToString();
-                fee.ayid = ddlayid.SelectedValue.ToString();
-
-                string jsonString = JsonHelper.JsonSerializer<Fees>(fee);
-                var httprequest = (HttpWebRequest)WebRequest.Create(url);
-                httprequest.ContentType = "application/json";
-                httprequest.Method = "POST";
-
-                using (var streamWriter = new StreamWriter(httprequest.GetRequestStream()))
+                string qry = "select distinct stud_Category,UPPER(stud_Gender) [stud_Gender] from m_std_personaldetails_tbl where stud_id='" + Session["UserName"].ToString() + "' and del_flag=0";
+                DataTable dt = cls.fildatatable(qry);
+                if (dt.Rows.Count > 0)
                 {
-                    streamWriter.Write(jsonString);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
-
-                var httpresponse = (HttpWebResponse)httprequest.GetResponse();
-                using (var streamReader = new StreamReader(httpresponse.GetResponseStream()))
-                {
-                    string result = streamReader.ReadToEnd();
-                    ds = JsonConvert.DeserializeObject<DataSet>(result);
-                }
-                if (ds.Tables.Count > 0)
-                {
-                    if (ds.Tables.Contains("Error") == true)
+                    string category = dt.Rows[0]["stud_Category"].ToString().Trim().ToUpper();
+                    string gender = dt.Rows[0]["stud_Gender"].ToString().Trim().ToUpper();
+                    gender = gender == "0" ? "FEMALE" : (gender == "1" ? "MALE" : gender);
+                    if (dt.Rows[0]["stud_Category"].ToString() == "OPEN")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notify", "$.notify('" + ds.Tables["Error"].Rows[0][0].ToString() + "', { color: '#fff', background: '#D44950', blur: 0.2, delay: 0 })", true);
+                        Session["feemaster"] = "m_FeeMaster";
+                        Session["gender"] = "NON";
                     }
                     else
                     {
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            grdtransaction.DataSource = ds.Tables[0];
-                            grdtransaction.DataBind();
-                        }
-                        else
-                        {
-                            grdtransaction.DataSource = null;
-                            grdtransaction.DataBind();
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notify", "$.notify('Fees not paid for selected year', { color: '#fff', background: '#D44950', blur: 0.2, delay: 0 })", true);
-                        }
+                        Session["feemaster"] = "m_FeeMaster_category";
+                        Session["gender"] = gender;
                     }
-                }
-                else
-                {
-                    grdtransaction.DataSource = null;
-                    grdtransaction.DataBind();
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notify", "$.notify('Fees not paid for selected year', { color: '#fff', background: '#D44950', blur: 0.2, delay: 0 })", true);
+                    load_grd();
                 }
             }
             else
             {
-                grdtransaction.DataSource = null;
-                grdtransaction.DataBind();
             }
         }
         catch(Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notify", "$.notify('" + ex.ToString() + "', { color: '#fff', background: '#D44950', blur: 0.2, delay: 0 })", true);
+        }
+    }
+
+    public void load_grd()
+    {
+        try
+        {
+            DataTable dt = cls.fillDataTable("select Receipt_no,Chq_status,Type,SUM(CAST(Amount as int)) [Amount],Recpt_mode,Convert(varchar, Pay_date,103) [Pay_date],Install_id from m_FeeEntry where Stud_id='" + Session["UserName"].ToString() + "' and Ayid='" + ddlayid.SelectedValue.Trim() + "' and del_flag=0 and fine_flag=0 and Chq_status = 'Clear' group by Receipt_no,Chq_status,Type,Recpt_mode,Pay_date,Install_id ;");
+            if (dt.Rows.Count > 0)
+            {
+                grdedit.DataSource = dt;
+                grdedit.DataBind();
+            }
+            else
+            {
+                grdedit.DataSource = null;
+                grdedit.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "anything", "$.notify('" + ex.Message.ToString() + "', { color: '#fff', background: '#D44950', blur: 0.2, delay: 0, timeout: 100 });", true);
+        }
+    }
+
+    protected void btnprint_Click(object sender, EventArgs e)
+    {
+        GridViewRow gvrow = (GridViewRow)(sender as Control).Parent.Parent;
+        string Chq_status = ((Label)gvrow.FindControl("Chq_status")).Text.Trim();
+        string Receipt_no = ((Label)gvrow.FindControl("Receipt_no")).Text.Trim();
+        string Type = ((Label)gvrow.FindControl("Type")).Text.Trim();
+        if (Chq_status != "Clear")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "anything", "$.notify('Cheque/NEFT Status :" + Chq_status + "!!', { color: '#a94442', background: '#f2dede', blur: 0.2, delay: 0 });", true);
+        }
+        else
+        {
+            Session["stud_id"] = Session["UserName"].ToString();
+            Session["ayid"] = ddlayid.SelectedValue.Trim();
+            Session["Type"] = Type;
+            Session["Receipt_no"] = Receipt_no;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "redirect('FeeReceiptMergeFees.aspx');", true);
         }
     }
 }
