@@ -18,9 +18,9 @@
         .watermark {
             color: #d0d0d0;
             position: absolute;
-            margin-top: 282px;
+            margin-top: 330px;
             height: 50px;
-            margin-left: 90px;
+            margin-left: 180px;
             z-index: 100;
             opacity: 0.1;
             text-align: center;
@@ -84,10 +84,10 @@
             .receipt-copy {
                 flex: 1;
                 border: 1px solid #000;
-                padding: 8px;
-                margin: 2px 5px;
+                padding: 0 8px;
+                margin: 2px 10px;
                 box-sizing: border-box;
-                font-size: 12px;
+                font-size: 14px;
             }
 
             table {
@@ -108,7 +108,7 @@
                     <div class="receipt-copy">
                         <div class="col-lg-12 col-sm-12">
                             <div class="watermark">
-                                <img src="/images/mu.png" style="height: 600px" />
+                                <img src="/images/mu.png" style="height: 400px" />
                             </div>
                             <div class="container" style="width: 100%">
                                 <div class="row">

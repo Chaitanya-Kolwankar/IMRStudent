@@ -38,9 +38,11 @@
             vertical-align: middle;
             text-align: center;
         }
-        .logo-nav{
+
+        .logo-nav {
             max-height: 50px;
         }
+
         .blink_me {
             -webkit-animation-name: blinker;
             -webkit-animation-duration: 1s;
@@ -183,39 +185,13 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <%--<img src="images/mu.png" alt="" class="logo-nav" />--%>
+                    
                     <asp:Label ID="lblname" runat="server" Text="" CssClass="form-control-static" Style="color: white"></asp:Label><br />
                 </a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <%--<li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong></strong>
-                                    <span class="pull-right text-muted">
-                                        <em></em>
-                                    </span>
-                                </div>
-                                <div>No New Messages is available</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>--%>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
@@ -237,9 +213,9 @@
             <div class="navbar-default sidebar" role="navigation" style="/*height: 100vh; */background: #2471A3">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search" style="text-align: center; display: none">
-                            <div class="input-group">
-                                <%--<img src="images/viva_lg.png" style="height: 50px; width: 165px" />--%>
+                        <li class="sidebar-search" style="text-align: center;">
+                            <div class="input-group" style="width:100%">
+                                <img src="images/RGCMS.png" style="height: 80px; width: 100px" />
                             </div>
                             <!-- /input-group -->
                         </li>

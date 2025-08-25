@@ -122,7 +122,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     //                       ktform.Visible = false;
                     //                   }
 
-                    lblstudid.Text = "ID:" + Session["UserName"].ToString();
+                    lblstudid.Text = "STUDENT ID:" + Session["UserName"].ToString();
 
                     //if (Session["a"] != "0")
                     //{

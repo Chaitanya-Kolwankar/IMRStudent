@@ -301,7 +301,7 @@ public partial class pendingFee : System.Web.UI.Page
 
     public string load_recipt_no(string stud_id)
     {
-        string year = ddlyear.SelectedValue.Split('-')[0];
+        string year = ddlyear.SelectedItem.Text.Trim().Split('-')[0];
         string prefix = stud_id + "-" + year + "-";
         int newIncrement = 1;
 
