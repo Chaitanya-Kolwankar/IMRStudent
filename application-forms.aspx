@@ -15,7 +15,7 @@
                 <a href="files/NOC Applications Form (Client).pdf" class="btn btn-outline btn-primary btn-lg btn-block" download>Download NOC Application Form</a>
                 <br />
                 <br />
-                <span><a href="files/Hamipatra AY 16-17.pdf" class="btn btn-outline btn-primary btn-lg btn-block" download>Click Here to Download Hamipatra</a></span>
+                <span style="display:none"><a href="files/Hamipatra AY 16-17.pdf" class="btn btn-outline btn-primary btn-lg btn-block" download>Click Here to Download Hamipatra</a></span>
             </div>
         </div>
     </div>
