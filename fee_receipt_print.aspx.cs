@@ -27,7 +27,7 @@ public partial class fee_receipt_print : System.Web.UI.Page
 
     public void fillyear(string stud_id)
     {
-        string qry = "select m.ayid,(substring(Duration, 9, 4) + '-' + right(Duration, 4)) as Durations,b.Group_id[Group Id],Group_title,(substring(Duration, 9, 4) + '-' + substring(Duration, 21, 4)) + ' (' + Group_title + ')' as Duration from m_academic m ,m_std_studentacademic_tbl st, m_crs_subjectgroup_tbl b where m.ayid = st.ayid and st.stud_id = '" + Session["UserName"].ToString() + "' and b.Group_id = st.group_id";
+        string qry = "select m.ayid,(substring(Duration, 9, 4) + '-' + right(Duration, 4)) as Durations,b.Group_id[Group Id],Group_title,(substring(Duration, 9, 4) + '-' + right(Duration, 4)) + ' (' + Group_title + ')' as Duration from m_academic m ,m_std_studentacademic_tbl st, m_crs_subjectgroup_tbl b where m.ayid = st.ayid and st.stud_id = '" + Session["UserName"].ToString() + "' and b.Group_id = st.group_id";
 
         DataSet dss = cls.fill_dataset(qry);
         //group_id.Value = dss.Tables[1].Rows[0].ToString();
