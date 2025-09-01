@@ -24,6 +24,56 @@
                 all: unset;
             }
     </style>
+    <style>
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        table, td, th {
+            border: 1px solid #ddd;
+            /*text-align: left;*/
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+
+        th {
+            color: #012970;
+        }
+
+        .caps {
+            text-transform: uppercase;
+        }
+
+        .FixedHeader {
+            position: sticky;
+            font-weight: bold;
+            top: 0;
+        }
+
+        .transparent-modal {
+            background-color: #0000;
+            border: 0px;
+        }
+
+        .form-control:disabled {
+            background-color: #e9ecef;
+        }
+
+        .form-control[readonly] {
+            background-color: #fff;
+        }
+
+        .form-control:disabled {
+            background-color: #e9ecef;
+        }
+    </style>
 
     <link href="notify-master/css/notify.css" rel="stylesheet" />
     <script src="js/jquery-min.js"></script>
@@ -73,6 +123,60 @@
                                 </div>
                             </div>
                             <br />
+                            <div class="row" runat="server" id="feetable">
+                                <div class="col-md-12 table-responsive" style="overflow: auto; max-height: 400px;">
+                                    <asp:GridView ID="grdfees" runat="server" Style="text-align: left;" AutoGenerateColumns="False" CssClass="table">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="Sr.no">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_sr_no" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <ItemStyle Width="15%" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField Visible="false">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblflag" runat="server" Text='<%# Eval("flag")%>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField Visible="false">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_struct_id" runat="server" Text='<%# Eval("Struct_id")%>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField Visible="false">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_struct_type" runat="server" Text='<%# Eval("Struct_type")%>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="STRUCTURE NAME">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblstructname" runat="server" Text='<%# Eval("Struct_name")%>'></asp:Label>
+                                                </ItemTemplate>
+                                                <ItemStyle Width="25%" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="TOTAL FEE">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblamount" runat="server" Text='<%# Eval("TotalFees")%>'></asp:Label>
+                                                </ItemTemplate>
+                                                <ItemStyle Width="20%" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="PAID">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblpaid" runat="server" Text='<%# Eval("Paid")%>'></asp:Label>
+                                                </ItemTemplate>
+                                                <ItemStyle Width="20%" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="BALANCE">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblpending" runat="server" Text='<%# Eval("Balance")%>'></asp:Label>
+                                                </ItemTemplate>
+                                                <ItemStyle Width="20%" />
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                            <br />
                             <div class="row" id="amtshw" runat="server">
                                 <div class="col-lg-3 col-md-2" id="div_install" runat="server" visible="false">
                                     <b>Installment :</b>
@@ -88,7 +192,8 @@
                                     <div class="row">
                                         <div class="col-md-2 fs-3" style="align-items: center; display: flex; align-content: center; font-size: larger">
                                             <br />
-                                            +</div>
+                                            +
+                                        </div>
                                         <div class="col-md-10">
                                             <asp:LinkButton ID="lnkFineInfo" runat="server" OnClick="lnkFineInfo_Click" CssClass="info-icon"><img src="images/information.png" style="height:16px;" alt="Info" />
                                             </asp:LinkButton>
