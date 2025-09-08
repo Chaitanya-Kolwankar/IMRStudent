@@ -79,7 +79,7 @@ public partial class fee_receipt_print : System.Web.UI.Page
     {
         try
         {
-            DataTable dt = cls.fillDataTable("select Receipt_no,Chq_status,Type,SUM(CAST(Amount as int)) [Amount],Recpt_mode,Convert(varchar, Pay_date,103) [Pay_date],Install_id from m_FeeEntry where Stud_id='" + Session["UserName"].ToString() + "' and Ayid='" + ddlayid.SelectedValue.Trim() + "' and del_flag=0 and fine_flag=0 and Chq_status = 'Clear' group by Receipt_no,Chq_status,Type,Recpt_mode,Pay_date,Install_id ;");
+            DataTable dt = cls.fillDataTable("select Receipt_no,Chq_status,Type,SUM(CAST(Amount as int)) [Amount],Recpt_mode,Convert(varchar, Pay_date,103) [Pay_date],Install_id from m_FeeEntry where Stud_id='" + Session["UserName"].ToString() + "' and Ayid='" + ddlayid.SelectedValue.Trim() + "' and del_flag=0 and fine_flag=0 and Chq_status = 'Clear' and concession_flag=0 group by Receipt_no,Chq_status,Type,Recpt_mode,Pay_date,Install_id ;");
             if (dt.Rows.Count > 0)
             {
                 grdedit.DataSource = dt;
